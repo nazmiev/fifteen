@@ -1,4 +1,5 @@
 {
+	"homepage": "https://nazmiev.github.io/fifteen",
 	"name": "fifteen_start",
 	"version": "0.0.1",
 	"description": "fifteen_start",
@@ -14,6 +15,7 @@
 	},
 	"devDependencies": {
 		"delete": "^1.1.0",
+		"gh-pages": "^4.0.0",
 		"gulp": "^4.0.2",
 		"gulp-clean-css": "^4.3.0",
 		"gulp-concat": "^2.6.1",
@@ -30,6 +32,8 @@
 		"pug": "^2.0.4"
 	},
 	"scripts": {
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d static",
 		"start": "gulp dev",
 		"build": "set NODE_ENV=production && gulp build",
 		"build1": "gulp build",
