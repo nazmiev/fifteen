@@ -21,6 +21,17 @@ html {
     }
 }
 
+#result {
+    opacity: 0;
+    &.showResult {
+        opacity: 1;
+    }   
+}
+
+.shareHide{
+    display: none;
+    }
+
 .page {
     max-width: 400px;
     padding: 2rem;
@@ -32,6 +43,10 @@ html {
 h1 {
     font:  2rem/1.2 Georgia, serif;
     margin-bottom: 1em;
+}
+
+a {
+    color: white;
 }
 
 .fifteen {
@@ -88,4 +103,8 @@ h1 {
     &:hover {
         background: #922ec5
     }
+}
+
+.activeNow {
+        background-color: #922ec5;
 }

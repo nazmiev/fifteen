@@ -4,6 +4,9 @@ const { isArrowFunctionExpression } = ("babel-types");
 const containerNode = document.getElementById('fifteen');
 const itemNodes = Array.from(containerNode.querySelectorAll('.item'));
 const countItems = 16;
+let swapsCounter = 0;
+const result = document.getElementById('result');
+const podelitsya = document.getElementById('share');
 
 if (itemNodes.length !== 16) {
     throw new Error(`Должно быть ровно ${countItems} items in HTML`);
@@ -16,27 +19,28 @@ let matrix = getMatrix(
 
 setPositionItems(matrix);
 
-/* Кнопка перемешать */
-document.getElementById('shuffle').addEventListener('click', () => {
-    const shuffledArray = shuffleArray(matrix.flat());
-    matrix = getMatrix(shuffledArray);
-    setPositionItems(matrix);
-})
-
-/* Кнопка авто */
+/* Кнопка перемешать2 */
 let autoId = 0;
+const knopkaSmartShuffle = document.getElementById('auto');
 
-document.getElementById('auto').addEventListener('click', () => {
+knopkaSmartShuffle.addEventListener('click', () => {
     if(!autoId) {
         autoId = setInterval(() => {
             itemNodes[Math.floor(Math.random() * itemNodes.length)].click()
-        }, 10)
+        }, 10);
+        knopkaSmartShuffle.classList.add('activeNow');
+        knopkaSmartShuffle.textContent='Хватит';
         console.log('click')
     }
     else {
         clearInterval(autoId);
         autoId = 0;
+        knopkaSmartShuffle.classList.remove('activeNow');
+        knopkaSmartShuffle.textContent='Еще мешай';
         console.log('unclick')
+        swapsCounter = 0;
+        result.classList.add('showResult');
+        result.textContent='Ваш результат: ';
     }
 
 })
@@ -157,11 +161,14 @@ function isValidForSwap(coords1,coords2) {
 
 function swap(coords1, coords2, matrix) {
     matrix[coords2.y][coords2.x] = [matrix[coords1.y][coords1.x], matrix[coords1.y][coords1.x] = matrix[coords2.y][coords2.x]][0];
-
+    swapsCounter ++;
+    console.log(swapsCounter);
+    result.textContent='Ваш результат: '+swapsCounter;
     /* показать что победил */
     if (isWon(matrix)) {
         addWonClass();
-        clearInterval(autoId);
+        knopkaSmartShuffle.textContent='Играть еще раз';
+        podelitsya.classList.remove('shareHide');
     }
 }
 
@@ -199,3 +206,6 @@ setTimeout(() => {
             kartinka.classList.remove('podskazkaShow');
         }, 2000)
     }, 1000)
+
+/* Кнопка поделиться */
+document.write(VK.Share.button({url: 'https://nazmiev.github.io/fifteen/', title: 'Сможешь побить мой рекорд в пятнашках?'}, {type: 'custom', text: '<img src="http://vk.com/images/vk32.png" />'}));
