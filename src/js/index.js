@@ -15,7 +15,6 @@ setPositionItems(matrix);
 
 document.getElementById('shuffle').addEventListener('click', () => {
     const shuffledArray = shuffleArray(matrix.flat());
-    console.log(shuffledArray)
     matrix = getMatrix(shuffledArray);
     setPositionItems(matrix);
 })
@@ -31,12 +30,15 @@ containerNode.addEventListener('click', (event) => {
     const buttonCoords = findCoordinatesByNumber(buttonNumber, matrix);
     const blankCoords = findCoordinatesByNumber(blankNumber, matrix);
     const isValid = isValidForSwap(buttonCoords, blankCoords);
-    console.log(isValid);
     if (isValid) {
         swap(blankCoords, buttonCoords, matrix);
         setPositionItems(matrix);
     }
 })
+/* Перемещение стрелками 
+window.addEventListener('keydown', (event) => {
+
+})*/
 
 function getMatrix(arr) {
     const matrix = [[], [], [], []];
@@ -96,11 +98,10 @@ function isValidForSwap(coords1,coords2) {
 }
 
 function swap(coords1, coords2, matrix) {
-    // const coords1Number = matrix[coords1.y][coords1.x];
-    // matrix[coords1.y][coords1.x] = matrix[coords2.y][coords2.x];
-    // matrix[coords2.y][coords2.x] = coords1Number;
-    // matrix[coords1.y][coords1.x], matrix[coords2.y][coords2.x] = matrix[coords2.y][coords2.x], matrix[coords1.y][coords1.x];
-    // b = [a, a = b][0];
     matrix[coords2.y][coords2.x] = [matrix[coords1.y][coords1.x], matrix[coords1.y][coords1.x] = matrix[coords2.y][coords2.x]][0];
 
 }
+
+// авто-режим
+// btns = document.querySelectorAll('button.item')
+// setInterval(function() { btns[Math.floor(Math.random() * 1000 % btns.length)].click() }, 10)

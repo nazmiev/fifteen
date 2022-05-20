@@ -35,8 +35,7 @@
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d static",
 		"start": "gulp dev",
-		"build": "set NODE_ENV=production && gulp build",
-		"build1": "gulp build",
+		"build": "set NODE_ENV=production&&gulp build",
 		"clean": "gulp clean",
 		"server": "gulp server"
 	}

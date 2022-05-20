@@ -4,8 +4,8 @@ html(lang="ru")
         meta(charset="utf-8")
         title Пятнашки
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet" href="/css/reset.css")
-        link(rel="stylesheet" href="/css/index.css")
+        link(rel="stylesheet" href=baseurl + "/css/reset.css")
+        link(rel="stylesheet" href=baseurl + "/css/index.css")
     body
         - var values = new Array(16).fill(0).map((item, index) => index + 1);
         .page
@@ -15,4 +15,4 @@ html(lang="ru")
                     button.item(data-matrix-id=val)
                         span.itemVal= val
             button.button#shuffle Перемешать
-        script(src="/js/index.js")
+        script(src=baseurl + "/js/index.js")
