@@ -1,3 +1,6 @@
+/*const { isArrowFunctionExpression } = require("babel-types");*/
+const { isArrowFunctionExpression } = ("babel-types");
+
 const containerNode = document.getElementById('fifteen');
 const itemNodes = Array.from(containerNode.querySelectorAll('.item'));
 const countItems = 16;
@@ -35,10 +38,46 @@ containerNode.addEventListener('click', (event) => {
         setPositionItems(matrix);
     }
 })
-/* Перемещение стрелками 
+/* Перемещение стрелками */
 window.addEventListener('keydown', (event) => {
+   if(!event.key.includes('Arrow')) {
+       return;
+   }
+   
+   const blankCoords = findCoordinatesByNumber(blankNumber, matrix);
+   const buttonCoords = {
+       x: blankCoords.x,
+       y: blankCoords.y,
+   };
+   const direction = event.key.split('Arrow')[1].toLowerCase();
+   const maxIndexMatrix = matrix.length;
 
-})*/
+   switch (direction) {
+        case 'up':
+            buttonCoords.y += 1;
+            break;
+        case 'down':
+            buttonCoords.y -= 1;
+            break;
+        case 'left':
+            buttonCoords.x += 1;
+            break;
+        case 'right':
+            buttonCoords.x -= 1;
+            break;
+   }
+
+   if (buttonCoords.y >= maxIndexMatrix || buttonCoords.y < 0 || buttonCoords.x >= maxIndexMatrix || buttonCoords.x < 0) {
+    return
+   }
+
+   swap(blankCoords, buttonCoords, matrix);
+   setPositionItems(matrix);   
+})
+
+
+
+
 
 function getMatrix(arr) {
     const matrix = [[], [], [], []];
@@ -100,6 +139,35 @@ function isValidForSwap(coords1,coords2) {
 function swap(coords1, coords2, matrix) {
     matrix[coords2.y][coords2.x] = [matrix[coords1.y][coords1.x], matrix[coords1.y][coords1.x] = matrix[coords2.y][coords2.x]][0];
 
+    /* показать что победил */
+    if (isWon(matrix)) {
+        addWonClass();
+    }
+}
+
+/* показать что победил */
+const winFlatArray = new Array(16).fill(0).map((_item, i) => i + 1);
+
+function isWon(matrix) {
+    const flatMatrix = matrix.flat();
+    for(let i = 0; i < winFlatArray.length; i++) {
+        if (flatMatrix[i] !== winFlatArray[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+const wonClass = 'fifteenWon'
+function addWonClass() {
+    setTimeout(() => {
+        containerNode.classList.add(wonClass);
+
+        setTimeout(() => {
+            containerNode.classList.remove(wonClass);
+        }, 1000)
+    }, 200)
 }
 
 // авто-режим

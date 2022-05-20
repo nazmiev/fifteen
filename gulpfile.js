@@ -65,7 +65,6 @@ function svg() {
 function pug() {
     return gulp.src(srcPug)
         .pipe(gulpData(() => {
-            console.log('bla', isProduction)
             return {
                 __dirname: __dirname,
                 require: require,
