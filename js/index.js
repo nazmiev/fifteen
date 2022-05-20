@@ -15,7 +15,6 @@ setPositionItems(matrix);
 
 document.getElementById('shuffle').addEventListener('click', () => {
     const shuffledArray = shuffleArray(matrix.flat());
-    console.log(shuffledArray)
     matrix = getMatrix(shuffledArray);
     setPositionItems(matrix);
 })
@@ -31,7 +30,6 @@ containerNode.addEventListener('click', (event) => {
     const buttonCoords = findCoordinatesByNumber(buttonNumber, matrix);
     const blankCoords = findCoordinatesByNumber(blankNumber, matrix);
     const isValid = isValidForSwap(buttonCoords, blankCoords);
-    console.log(isValid);
     if (isValid) {
         swap(blankCoords, buttonCoords, matrix);
         setPositionItems(matrix);
