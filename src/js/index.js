@@ -16,10 +16,29 @@ let matrix = getMatrix(
 
 setPositionItems(matrix);
 
+/* Кнопка перемешать */
 document.getElementById('shuffle').addEventListener('click', () => {
     const shuffledArray = shuffleArray(matrix.flat());
     matrix = getMatrix(shuffledArray);
     setPositionItems(matrix);
+})
+
+/* Кнопка авто */
+let autoId = 0;
+
+document.getElementById('auto').addEventListener('click', () => {
+    if(!autoId) {
+        autoId = setInterval(() => {
+            itemNodes[Math.floor(Math.random() * itemNodes.length)].click()
+        }, 10)
+        console.log('click')
+    }
+    else {
+        clearInterval(autoId);
+        autoId = 0;
+        console.log('unclick')
+    }
+
 })
 
 const blankNumber = 16;
@@ -142,6 +161,7 @@ function swap(coords1, coords2, matrix) {
     /* показать что победил */
     if (isWon(matrix)) {
         addWonClass();
+        clearInterval(autoId);
     }
 }
 
@@ -170,6 +190,12 @@ function addWonClass() {
     }, 200)
 }
 
-// авто-режим
-// btns = document.querySelectorAll('button.item')
-// setInterval(function() { btns[Math.floor(Math.random() * 1000 % btns.length)].click() }, 10)
+/* подсказка про управление стрелочками */
+const kartinka = document.getElementById('hint');
+setTimeout(() => {
+        kartinka.classList.add('podskazkaShow');
+
+        setTimeout(() => {
+            kartinka.classList.remove('podskazkaShow');
+        }, 2000)
+    }, 1000)

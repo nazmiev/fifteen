@@ -8,6 +8,17 @@ html {
     html {
         font-size: 14px;
     }
+    #hint {
+        display: none;
+    }
+}
+
+#hint {
+    transition: opacity ease 2s;
+    opacity: 0;
+    &.podskazkaShow {
+        opacity: 1;
+    }
 }
 
 .page {
@@ -72,7 +83,8 @@ h1 {
     border: none;
     cursor: pointer;
     padding: 0.5em 1.5em;
-
+    margin: 0.5em;
+    
     &:hover {
         background: #922ec5
     }
